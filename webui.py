@@ -7,17 +7,17 @@ import shutil
 
 
 def generate(text, h, w):
-    with open('progrock-stable\db\idle_settings.json', 'r', encoding='utf8') as f:
+    with open('settings.json', 'r', encoding='utf8') as f:
         data = json.load(f)
     f.close()
     data['prompt'] = text
     data["batch_name"] = 'gradio'
     data["height"] = int(h)
     data["width"] = int(w)
-    with open('progrock-stable\db\gradio_settings.json', 'w+', encoding='utf8') as f:
+    with open('gradio_settings.json', 'w+', encoding='utf8') as f:
         json.dump(data, f, indent=4)
     f.close()
-    shutil.copy('progrock-stable\db\gradio_settings.json', 'progrock-stable\job_cuda_0.json')
+    shutil.copy('gradio_settings.json', 'job_cuda_0.json')
     list_of_files = glob('out/gradio/*.png') # * means all if need specific format then *png
     latest_png = max(list_of_files, key=os.path.getctime)
     while latest_png == max(list_of_files, key=os.path.getctime):
